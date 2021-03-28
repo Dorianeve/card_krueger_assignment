@@ -2,17 +2,27 @@
 title: "Minimum wages and employment: A case study of the fast food industry in New Jersey and Pennsylvania"
 author: "Verena Brufatto, Claudia Manili, Luca Messina, Alessandro Villa"
 date: \today
-output: ioslides_presentation
+output: 
+  beamer_presentation:
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
     
 always_allow_html: true
+
+header-includes:
+- \usepackage{fourier} 
+- \usepackage{array}
+- \usepackage{makecell}
+
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(dev = 'pdf')
 
 library(plotly)
+library(kableExtra)
 
-data <- readr::read_csv("https://docs.google.com/uc?id=10h_5og14wbNHU-lapQaS1W6SBdzI7W6Z&export=download")
+load(paste0(path, "/results.RData"))
 
 ```
 
@@ -29,28 +39,56 @@ data <- readr::read_csv("https://docs.google.com/uc?id=10h_5og14wbNHU-lapQaS1W6S
 
 Variabile              | Descrizione
 --------------------   | ------------------------------------------------------------
-Treatment (T)          | Variazione del salario minimo del New Jersey in aprile 1992 
-Outcome (Y)            | Occupazione
+Treatment              |  \makecell{Variazione del salario minimo \\ del New Jersey in aprile 1992} 
+Outcome                | Occupazione
 Identification         | Difference in differences
-Treatment group (P)    | New Jersey
-Control group (S)      | Pennsylvania
-Time 1                 | Febbraio 1992
-Time 2                 | Novembre 1992
+Treatment group        | New Jersey
+Control group          | Pennsylvania
+Before                 | Febbraio 1992
+After                  | Novembre 1992
+
+## Difference in differences
+
+$y = \beta_0 + \beta_1 T + \beta_2 S + \beta_3 (TS) + \varepsilon$
+
+dove 
+
+- $T = 1$ se $t = After$
+- $S = 1$ se $s = NJ$
+
+## Difference in differences
+
+$y_{st}$       | s = 2             | s = 1             |  Difference
+-------------- | ----------------- | ----------------- | ----------------------
+$t = 2$        | $y_{22}$          | $y_{12}$          | $y_{12} - y_{22}$
+$t = 1$        | $y_{21}$          | $y_{11}$          | $y_{11} - y_{21}$
+Change         | $y_{21} - y_{22}$ | $y_{11} - y_{22}$ | $(y_{11} - y_{21})$ - $(y_{12} - y_{22})$
+
+Effetto del trattamento: 
+$\hat{\beta}_3 = (y_{11} - y_{21}) - (y_{12} - y_{22})$
+
+## Campione di ristoranti in $T_2$
+
+```{r eval=T, echo=F, include=T, message=F, warning=F}
 
 
-## Grafico 1
+table1 %>%
+  kbl(caption = "", booktabs = T, linesep = "") %>%
+  kable_styling() 
 
-```{r eval=T, echo=F, include=T, message=F, warning=F, fig.width= 10}
+```
 
-x_st_wage_before_nj <- 
-  data$x_st_wage_before[data$d_nj == 1]
-x_st_wage_before_pa <- 
-  data$x_st_wage_before[data$d_pa == 1]
 
-# Plotly histogram  
+## Distribuzione dei salari in $T_1$
+
+```{r eval=T, echo=F, include=T, message=F, warning=F, out.height="180%", out.width="170%"}
+
+x_st_wage_before_nj <- dat_NJ$wage_st
+x_st_wage_before_pa <- dat_PA$wage_st
+
 xbins <- list(start=4.20, end=5.60, size=0.1)
 
-p <- plot_ly(alpha = 0.6) %>%
+p <- plot_ly(alpha = 0.6, width = 800, height = 800) %>%
   add_histogram(x = x_st_wage_before_nj, 
                 xbins = xbins,
                 histnorm = "percent", 
@@ -68,10 +106,45 @@ p <- plot_ly(alpha = 0.6) %>%
                        r = 80, 
                        t = 80, 
                        pad = 0, 
-                       autoexpand = TRUE))
+                       autoexpand = T))
 
 p
 
+
+```
+
+
+## Distribuzione dei salari in $T_2$
+
+```{r eval=T, echo=F, include=T, message=F, warning=F, out.height="180%", out.width="170%"}
+
+# WAGE AFTEER
+  x_st_wage_after_nj <- dat_NJ$wage_st2
+  x_st_wage_after_pa <- dat_PA$wage_st2
+
+  xbins <- list(start=4.20,
+                end=5.60,
+                size=0.1)
+  p <- plot_ly(alpha = 0.6, width = 800, height = 800) %>%
+    add_histogram(x = x_st_wage_after_nj, 
+                  xbins = xbins,
+                  histnorm = "percent", 
+                  name = "Wage After (New Jersey)") %>%
+    add_histogram(x = x_st_wage_after_pa, 
+                  xbins = xbins,
+                  histnorm = "percent",
+                  , name = "Wage After (Pennsylvania)") %>%
+    layout(barmode = "group", title = "November 1992",
+           xaxis = list(tickvals=seq(4.25, 5.55, 0.1),
+                        title = "Wage in $ per hour"),
+             yaxis = list(range = c(0, 100)),
+           margin = list(b = 100, 
+                          l = 80, 
+                          r = 80, 
+                          t = 80, 
+                          pad = 0, 
+                          autoexpand = TRUE))
+  p
 
 ```
 
