@@ -2,7 +2,7 @@
 
 Da avere in work directory:
 
-- Sorgente di dati (fastfood.dat) https://github.com/michaelaoash/git-econ753/tree/master/lab-07-minimum-wage/ucla
+- Sorgente di dati (fastfood.dta) https://github.com/michaelaoash/git-econ753/tree/master/lab-07-minimum-wage/ucla
 
 Procedimento analisi:
 
