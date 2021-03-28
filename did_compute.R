@@ -2,6 +2,7 @@
 library(dplyr)
 library(foreign)
 
+path = '.'
 dir = paste0(path, "/fastfood.dta")
 
 # import dataset

@@ -21,7 +21,7 @@ knitr::opts_chunk$set(dev = 'pdf')
 
 library(plotly)
 library(kableExtra)
-
+path = "."
 load(paste0(path, "/results.RData"))
 
 ```
