@@ -3,7 +3,6 @@ library(dplyr)
 library(foreign)
 library(tidyr)
 
-path <- '.'
 dir = paste0(path, "/fastfood.dta")
 
 ##### import dataset ################
@@ -90,7 +89,7 @@ min_wage1 <- dat %>%
 means1<- dat %>%
   group_by(state) %>%
   mutate(emptot = empft / FTE * 100 ) %>%
-  mutate(price = psoda + pentree + pfry)%>%
+  mutate(price = psoda + pentree + pfry) %>%
   summarise(fte = mean(FTE, na.rm = TRUE),
             emptot  = mean(emptot, na.rm = TRUE),
             wage_st = mean(wage_st, na.rm = TRUE),
@@ -98,6 +97,8 @@ means1<- dat %>%
             price = mean(price, na.rm = TRUE))
 
 wave1 = cbind(means1, min_wage = min_wage1$freq)
+
+# means wave 2
 
 app <- dat %>%
   filter(!is.na(wage_st2))%>%
@@ -120,6 +121,27 @@ means2 <- dat %>%
 min_wage = c(as.numeric(min_wage21[1, "freq"]), 0)
 
 wave2 = cbind(means2, min_wage, max_wage = min_wage21[2:3, "freq"])
+
+# table 2
+names = c("FTE employment", 
+          "Full time employees (%)", 
+          "Starting wage", 
+          "Hours open", 
+          "Price of meal", 
+          "Wage = 4.25$ (%)")
+
+w1 = t(wave1[,-1])
+
+w11 = cbind(w1[, 2], w1[, 1])
+
+w2 = t(wave2[, -1])
+
+w22 = cbind(w2[, 2], w2[, 1])
+
+rownames(w11) = names
+rownames(w22) = c(names, "Wage = 5.05$ (%)")
+
+table2 = rbind(stores, w11, w22)
 
 ##### reproduce table 3 #############
 
