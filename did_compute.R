@@ -3,6 +3,8 @@ library(dplyr)
 library(foreign)
 library(tidyr)
 
+path = '.'
+
 dir = paste0(path, "/fastfood.dta")
 
 ##### import dataset ################
