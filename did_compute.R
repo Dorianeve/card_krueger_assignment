@@ -43,8 +43,8 @@ for( i in 1:length(options)){
 }
 
 app = cbind(table1_NJ + table1_PA,
-               table1_NJ, 
-               table1_PA)
+            table1_NJ, 
+            table1_PA)
 
 tot =  cbind( nrow(dat_NJ) + nrow(dat_PA), 
               nrow(dat_NJ), 
@@ -270,7 +270,7 @@ res42 <- dat %>%
   select(w, change_mean)
 
 mean_diff4 = c( res42$change_mean[1] - res42$change_mean[3], 
-                    res42$change_mean[2] - res42$change_mean[3])
+                res42$change_mean[2] - res42$change_mean[3])
 
 row4_mean = c(res41$change_mean, res41_diff,
               res42$change_mean, 
@@ -280,7 +280,7 @@ row4_mean = c(res41$change_mean, res41_diff,
 
 res5 <- dat %>% 
   filter(complete.cases(FTE, FTE2))
-  
+
 res51 <-  res5 %>%
   mutate(fte_adj = ifelse(status2 %in% c(2,4,5), 0, FTE2)) %>%
   group_by(state) %>%
@@ -316,14 +316,14 @@ rownames(table3) = c("Mean FTE before",
 
 ## subsetting for complete cases (as per data)
 reg_dat <- dat %>% 
- filter(complete.cases(FTE, FTE2))
+  filter(complete.cases(FTE, FTE2)) %>%
+  filter(complete.cases(wage_st, wage_st2) | status2 == 3)
 
 ## model ii - ho creato una dummy for 3 delle 4 chains (non specifica quali il paper)
 reg_dat <- reg_dat  %>% 
   mutate(chains = ifelse(chain %in% c(1,2,3), 1, 0))
 
 ## model iii - creo la variabile GAP - usata nel paper 
-
 reg_dat <- reg_dat %>%
   mutate(gap = ifelse(wage_st >= 5.05, 0, (5.05-wage_st)/wage_st))
 reg_dat <- reg_dat %>%
@@ -349,9 +349,9 @@ md4 <- summary(model_4)
 
 i <- rbind(model_1[[1]][c('state')],
            md1$sigma)
-           
+
 ii <- rbind(model_2[[1]][c('state')]+model_2[[1]][c('chains')]+model_2[[1]][c('co_owned')],
-          md2$sigma)
+            md2$sigma)
 
 iii <- rbind(model_3[[1]][c('gap')], 
              md3$sigma)
@@ -368,6 +368,4 @@ rownames(table4) = c("regression coefficients", "Standard Error")
 #### save results #############
 
 save.image(file = paste0(path, "/results.RData"))
-
-
 
