@@ -34,8 +34,6 @@ knitr::opts_chunk$set(dev = 'pdf')
 library(plotly)
 library(kableExtra)
 
-path = "C:/Users/uga05338/Desktop/Master Unimi/2 trimestre/Economic and Financial Time Series/Florio/rmd"
-
 load(paste0(path, "/results.RData"))
 
 ```
