@@ -3,9 +3,9 @@ library(dplyr)
 library(foreign)
 library(tidyr)
 
-path = '.'
+path <- '.'
 
-dir = paste0(path, "/fastfood.dta")
+dir <- paste0(path, "/fastfood.dta")
 
 ##### import dataset ################
 dat <- read.dta(dir)
@@ -277,11 +277,12 @@ row4_mean = c(res41$change_mean, res41_diff,
               mean_diff4)
 
 # row 5
+
 res5 <- dat %>% 
   filter(complete.cases(FTE, FTE2))
   
 res51 <-  res5 %>%
-  mutate(fte_adj = ifelse(status2 %in% c(2,4,5), 0, FTE2 )) %>%
+  mutate(fte_adj = ifelse(status2 %in% c(2,4,5), 0, FTE2)) %>%
   group_by(state) %>%
   summarise(mean_before = mean(FTE), mean_after = mean(fte_adj)) %>%
   mutate(change_mean = mean_after - mean_before) %>% 
@@ -308,6 +309,61 @@ rownames(table3) = c("Mean FTE before",
                      "SE FTE after",
                      "Change in mean", 
                      "Change in mean, balanced sample")
+
+
+### regression for table 4
+# set up the data for regression analysis
+
+## subsetting for complete cases (as per data)
+reg_dat <- dat %>% 
+ filter(complete.cases(FTE, FTE2))
+
+## model ii - ho creato una dummy for 3 delle 4 chains (non specifica quali il paper)
+reg_dat <- reg_dat  %>% 
+  mutate(chains = ifelse(chain %in% c(1,2,3), 1, 0))
+
+## model iii - creo la variabile GAP - usata nel paper 
+
+reg_dat <- reg_dat %>%
+  mutate(gap = ifelse(wage_st >= 5.05, 0, (5.05-wage_st)/wage_st))
+reg_dat <- reg_dat %>%
+  mutate(gap = ifelse(state == 0, 0, gap))
+
+
+# estimate the regression model FTE2-FTE dependent
+# independent NJ
+model_1 <- lm(FTE2-FTE ~ state, data = reg_dat)
+# independent NJ + variabili di controllo chains e co-ownership
+model_2 <- lm(FTE2-FTE ~ state + chains + co_owned, data = reg_dat)
+# independent modello GAP calcolato sopra
+model_3 <- lm(FTE2-FTE ~ gap, data = reg_dat)
+# independent modello GAP + variabili di controllo chains e co-ownership
+model_4 <- lm(FTE2-FTE ~ gap + chains + co_owned, data = reg_dat)
+
+md1 <- summary(model_1)
+md2 <- summary(model_2)
+md3 <- summary(model_3)
+md4 <- summary(model_4)
+
+## creo tabella 4 
+
+i <- rbind(model_1[[1]][c('state')],
+           md1$sigma)
+           
+ii <- rbind(model_2[[1]][c('state')]+model_2[[1]][c('chains')]+model_2[[1]][c('co_owned')],
+          md2$sigma)
+
+iii <- rbind(model_3[[1]][c('gap')], 
+             md3$sigma)
+
+iv <- rbind(model_4[[1]][c('gap')]+model_4[[1]][c('chains')]+model_4[[1]][c('co_owned')],
+            md4$sigma)
+
+table4 <- cbind(i,ii,iii,iv)
+
+colnames(table4) = c("i","ii","iii","iv")
+
+rownames(table4) = c("regression coefficients", "Standard Error")
 
 #### save results #############
 
