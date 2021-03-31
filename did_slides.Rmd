@@ -26,6 +26,7 @@ header-includes:
 - \usepackage[normalem]{ulem}
 - \usepackage{makecell}
 - \usepackage{xcolor}
+- \usepackage{caption}
 ---
 
 ```{r setup, include=FALSE}
@@ -33,6 +34,7 @@ knitr::opts_chunk$set(dev = 'pdf')
 
 library(plotly)
 library(kableExtra)
+path = "."
 
 load(paste0(path, "/results.RData"))
 
@@ -80,12 +82,12 @@ Effetto del trattamento:
 $\beta_3 = (y_{11} - y_{21}) - (y_{12} - y_{22})$
 
 ## Campione di ristoranti in $T_2$
-
+\captionsetup[table]{labelformat=empty}
 ```{r eval=T, echo=F, include=T, message=F, warning=F}
 
 
 table1 %>%
-  kbl(caption = "", booktabs = T, linesep = "") %>%
+  kbl(caption = "\\textbf{Table 1}", booktabs = T, linesep = "") %>%
   kable_styling() 
 
 ```
@@ -194,7 +196,7 @@ p
 ```
 
 ## Table 2
-
+\captionsetup[table]{labelformat=empty}
 ```{r eval=T, echo=F, include=T, message=F, warning=F}
 
 tab = round(table2, 2)
@@ -203,7 +205,7 @@ knitr::kable(tab,
              format="latex", 
              booktabs = T, 
              linesep = "", 
-             caption = "", 
+             caption = "\\textbf{Table 2}", 
              longtable=T)%>%
 
 kable_styling(full_width = F,
@@ -219,7 +221,7 @@ column_spec(2:(nrow(tab)+1), width = "5em")
 ```
 
 ## Table 3
-
+\captionsetup[table]{labelformat=empty}
 ```{r eval=T, echo=F, include=T, message=F, warning=F}
 
 tab = round(table3, 2)
@@ -228,7 +230,7 @@ knitr::kable(t(tab),
              format="latex", 
              booktabs = T, 
              linesep = "", 
-             caption = "", 
+             caption = "\\textbf{Table 3}", 
              longtable=T)%>%
 
 kable_styling(full_width = F,
