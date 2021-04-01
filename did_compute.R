@@ -2,7 +2,7 @@
 library(dplyr)
 library(foreign)
 library(tidyr)
-library(cars)
+library(car)
 
 path <- '.'
 

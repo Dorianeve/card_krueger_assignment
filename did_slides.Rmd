@@ -118,7 +118,7 @@ table1 %>%
 
 ## Distribuzione dei salari in $T_1$
 
-```{r eval=T, echo=F, include=T, message=F, warning=F, out.height="180%", out.width="170%"}
+```{r eval=T, echo=F, include=T, message=F, warning=F, out.height="80%", out.width="70%"}
 
 x_st_wage_before_nj <- dat_NJ$wage_st
 x_st_wage_before_pa <- dat_PA$wage_st
@@ -153,7 +153,7 @@ p
 
 ## Distribuzione dei salari in $T_2$
 
-```{r eval=T, echo=F, include=T, message=F, warning=F, out.height="180%", out.width="170%"}
+```{r eval=T, echo=F, include=T, message=F, warning=F, out.height="80%", out.width="70%"}
 
 # WAGE AFTEER
   x_st_wage_after_nj <- dat_NJ$wage_st2
@@ -186,7 +186,7 @@ p
 ```
 
 
-```{r eval=T, echo=F, include=T, message=F, warning=F, out.height="180%", out.width="170%"}
+```{r eval=T, echo=F, include=T, message=F, warning=F, out.height="80%", out.width="70%"}
 
 # WAGE AFTEER
   x_st_wage_after_nj <- dat_NJ$wage_st2
@@ -288,4 +288,11 @@ column_spec(2:(nrow(tab)+1), width = "5em")
 
 ```
 
-## Risultati 
+## Risultati (da finire)
+
+- tasso occupazione non diminuisce all'aumento del salario minimo
+- risultato difference in differences validato con regressione lineare (senza e controlli)
+(variabile dipendente cambio tasso occupazione, indipendente stato e variabile GAP)
+- vogliamo mettere di QUANTO cambia l'occupazione?
+
+
