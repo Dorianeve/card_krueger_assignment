@@ -2,6 +2,7 @@
 library(dplyr)
 library(foreign)
 library(tidyr)
+library(cars)
 
 path <- '.'
 
@@ -311,7 +312,7 @@ rownames(table3) = c("Mean FTE before",
                      "Change in mean, balanced sample")
 
 
-### regression for table 4
+### regression for table 4 #####################
 # set up the data for regression analysis
 
 ## subsetting for complete cases (as per data)
@@ -321,7 +322,9 @@ reg_dat <- dat %>%
 
 ## model ii - ho creato una dummy for 3 delle 4 chains (non specifica quali il paper)
 reg_dat <- reg_dat  %>% 
-  mutate(chains = ifelse(chain %in% c(1,2,3), 1, 0))
+  mutate(contr_bk = case_when(chain == "1" ~ 1, chain != "1" ~ 0), 
+         contr_kfc = case_when(chain == "2" ~ 1, chain != "2" ~ 0), 
+         contr_roys = case_when(chain == "3" ~ 1, chain != "3" ~ 0))
 
 ## model iii - creo la variabile GAP - usata nel paper 
 reg_dat <- reg_dat %>%
@@ -334,36 +337,62 @@ reg_dat <- reg_dat %>%
 # independent NJ
 model_1 <- lm(FTE2-FTE ~ state, data = reg_dat)
 # independent NJ + variabili di controllo chains e co-ownership
-model_2 <- lm(FTE2-FTE ~ state + chains + co_owned, data = reg_dat)
+model_2 <- lm(FTE2-FTE ~ state + contr_bk + contr_kfc + contr_roys + co_owned, data = reg_dat)
 # independent modello GAP calcolato sopra
 model_3 <- lm(FTE2-FTE ~ gap, data = reg_dat)
 # independent modello GAP + variabili di controllo chains e co-ownership
-model_4 <- lm(FTE2-FTE ~ gap + chains + co_owned, data = reg_dat)
+model_4 <- lm(FTE2-FTE ~ gap + contr_bk + contr_kfc + contr_roys + co_owned, data = reg_dat)
+
+model_5 <- lm(FTE2-FTE ~ gap + contr_bk + contr_kfc + contr_roys + co_owned + southj  + centralj  + pa1  + pa2 , data = reg_dat)
 
 md1 <- summary(model_1)
 md2 <- summary(model_2)
 md3 <- summary(model_3)
 md4 <- summary(model_4)
+md5 <- summary(model_5)
+
+# f test for exclusion of controls
+
+f_mod2 <- linearHypothesis(model_2, c("contr_bk=0", "contr_kfc=0", "contr_roys =0", "co_owned = 0"))
+f_mod4  <- linearHypothesis(model_4, c("contr_bk=0", "contr_kfc=0", "contr_roys =0", "co_owned = 0"))
+f_mod5 <- linearHypothesis(model_5, c("contr_bk=0", "contr_kfc=0", "contr_roys =0", "co_owned = 0", "southj=0", "centralj=0", "pa1=0", "pa2=0"))
+
+f2 <- f_mod2$`Pr(>F)`[2]
+f4 <- f_mod4$`Pr(>F)`[2]
+f5 <- f_mod5$`Pr(>F)`[2]
+
+f <- c("-", round(f2, 2), "-", round(f4, 2), round(f5, 2))
 
 ## creo tabella 4 
 
-i <- rbind(model_1[[1]][c('state')],
-           md1$sigma)
+i <- c( md1$coefficients["state", "Estimate"], 
+        md1$coefficients["state", "Std. Error"],
+        md1$sigma)
 
-ii <- rbind(model_2[[1]][c('state')]+model_2[[1]][c('chains')]+model_2[[1]][c('co_owned')],
-            md2$sigma)
+ii <- c(md2$coefficients["state", "Estimate"], 
+        md2$coefficients["state", "Std. Error"],
+        md2$sigma)
 
-iii <- rbind(model_3[[1]][c('gap')], 
-             md3$sigma)
+iii <- c(md3$coefficients["gap", "Estimate"], 
+         md3$coefficients["gap", "Std. Error"],
+         md3$sigma)
 
-iv <- rbind(model_4[[1]][c('gap')]+model_4[[1]][c('chains')]+model_4[[1]][c('co_owned')],
-            md4$sigma)
+iv <- c(md4$coefficients["gap", "Estimate"], 
+        md4$coefficients["gap", "Std. Error"],
+        md4$sigma)
 
-table4 <- cbind(i,ii,iii,iv)
+v <- c(md5$coefficients["gap", "Estimate"], 
+       md5$coefficients["gap", "Std. Error"],
+       md5$sigma)
 
-colnames(table4) = c("i","ii","iii","iv")
+app <- cbind(i,ii,iii,iv,v)
 
-rownames(table4) = c("regression coefficients", "Standard Error")
+table4 <- rbind(round(app,2), 
+                f)
+
+colnames(table4) = c("i","ii","iii","iv", "v")
+
+rownames(table4) = c("Coefficients", "SE Coefficients","SE Regression", "Prob. Controls")
 
 #### save results #############
 
