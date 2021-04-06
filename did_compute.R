@@ -74,7 +74,7 @@ owned <- dat %>%
 
 stores = rbind(chunk1, owned$freq) * 100
 
-colnames(stores) = c("PA", "NJ")
+colnames(stores) = c("NJ", "PA")
 rownames(stores) = c("Buger King", 
                      "KFC", 
                      "Roy Rogers", 

@@ -4,10 +4,10 @@ title: 'Minimum wages and employment: A case study of the fast food industry in 
 author: "Verena Brufatto, Claudia Manili, Luca Messina, Alessandro Villa"
 date: "\today"
 output:
-  ioslides_presentation: default
   beamer_presentation:
     colortheme: dolphin
     fonttheme: structurebold
+  ioslides_presentation: default
 always_allow_html: yes
 header-includes:
 - \usepackage{fourier}
@@ -44,67 +44,29 @@ load(paste0(path, "/results.RData"))
 
 ## Introduzione
 
-- Il salario minimo del New Jersey passa da \$4.25 a \$5.05 l'ora in data 01/04/1992.
-- Si utilizzano i dati di 410 ristoranti di fast-food prima e dopo la manovra per valutarne l'impatto. 
-- Si confronta la crescita dell'occupazione nei ristoranti del New Jersey (treatment group) con quella dei ristoranti in Pennsylvania (control group).
-- Gli autori non trovano evidenza di un calo nell'occupazione causato dall'aumento del salario minimo. 
-
-## Sintesi
-
-Variabile              | Descrizione
---------------------   | ------------------------------------------------------------
-Treatment              |  \makecell{Variazione del salario minimo \\ del New Jersey in aprile 1992} 
-Outcome                | Occupazione
-Identification         | Difference in differences
-Treatment group        | New Jersey
-Control group          | Pennsylvania
-Before                 | Febbraio 1992
-After                  | Novembre 1992
-
-## Difference in differences
-
-$y = \beta_0 + \beta_1 T + \beta_2 S + \beta_3 (TS) + \varepsilon$
-
-dove 
-
-- $T = 1$ se $t = After$
-- $S = 1$ se $s = NJ$
-
-## Difference in differences
-
-$y_{st}$       | s = 2             | s = 1             |  Difference
--------------- | ----------------- | ----------------- | ----------------------
-$t = 2$        | $y_{22}$          | $y_{12}$          | $y_{12} - y_{22}$
-$t = 1$        | $y_{21}$          | $y_{11}$          | $y_{11} - y_{21}$
-Change         | $y_{21} - y_{22}$ | $y_{11} - y_{22}$ | $(y_{11} - y_{21})$ - $(y_{12} - y_{22})$
-
-Effetto del trattamento: 
-$\beta_3 = (y_{11} - y_{21}) - (y_{12} - y_{22})$
-
-## Card & Krueger (1994)
-
-$$
-\Delta E_i = \alpha + \beta X_i + \gamma NJ_i + \varepsilon_i
-$$
-dove: 
-
-- $\Delta E_i$ = variazione dell'occupazione fra $t_1$ e $t_2$ nel ristorante $i$
-- $X_i$ = matrice di covariate
-- $NJ_i$ = 1 se il ristorante è in New Jersey, 0 altrimenti
-
-## Card & Krueger (1994)
-
-$$
-\Delta E_i = \alpha' + \beta' X_i + \gamma' GAP_i + \varepsilon_i
-$$
-dove: 
-
-- $GAP_i$ = 0 se il ristorante è in Pennsylvania
-- $GAP_i$ = 0 se il ristorante è in New Jersey e $W_{1i} = \$5.05$
-- $GAP_i$ = $(5.05 - W_{1i})/W_{1i}$ per gli altri ristoranti in New Jersey
+- Presentiamo l'articolo di David Card e Alan B. Kruger del settembre 1994.
+- In un mercato del lavoro con bassi salari, quali sono gli effetti sull'occupazione dovuti ad un aumento del salario minimo?
+- In data 1 Aprile 1992 il salario minimo del New Jersey aumenta da \$4.25 a \$5.05 l'ora.
+- Si analizza l'industria dei fast food.
 
 
-## Campione di ristoranti in $T_2$
+## Caso di Studio
+
+- Perché l'industria del fast food?
+    - Alta percentuale di lavoratori con bassi salari.
+    - I ristoranti rispettano la regolamentazione sul salario minimo.
+    - Qualifica dei lavoratori e prodotti finali omogenei, assenza di mance facilitano la misurazione del salario.
+    
+- Sono intervistati diversi ristoranti fast-food.
+- Suddivisione in due gruppi.
+    - Treatment group, ristoranti del New Jersey in cui si ha l'aumento del salario minimo.
+    - Control group, ristoranti della Pennsylvania con economia comparabile a quella del New Jersey.
+
+- I ristoranti sono stati intervistati prima e dopo il trattamento.
+
+
+## Overview del campione - 1
+
 \captionsetup[table]{labelformat=empty}
 ```{r eval=T, echo=F, include=T, message=F, warning=F}
 
@@ -114,6 +76,34 @@ table1 %>%
   kable_styling() 
 
 ```
+
+
+## Overview del campione - 2
+
+\captionsetup[table]{labelformat=empty}
+```{r eval=T, echo=F, include=T, message=F, warning=F}
+
+tab = round(table2, 2)
+
+knitr::kable(tab,
+             format="latex", 
+             booktabs = T, 
+             linesep = "", 
+             caption = "\\textbf{Table 2 - Means of key variables}", 
+             longtable=T)%>%
+
+kable_styling(full_width = F,
+              font_size=6) %>%
+  
+group_rows("Distribution of stores (%)", 1, 5) %>%
+group_rows("Means in T1", 6, 11) %>%
+group_rows("Means in T2",12, nrow(tab)) %>%
+
+row_spec(0, bold = T)  %>%
+column_spec(2:(nrow(tab)+1), width = "5em")
+
+```
+
 
 
 ## Distribuzione dei salari in $T_1$
@@ -218,30 +208,40 @@ p
 
 ```
 
-## Table 2
-\captionsetup[table]{labelformat=empty}
-```{r eval=T, echo=F, include=T, message=F, warning=F}
 
-tab = round(table2, 2)
 
-knitr::kable(tab,
-             format="latex", 
-             booktabs = T, 
-             linesep = "", 
-             caption = "\\textbf{Table 2}", 
-             longtable=T)%>%
+## Sintesi
 
-kable_styling(full_width = F,
-              font_size=6) %>%
-  
-group_rows("Distribution of stores (%)", 1, 5) %>%
-group_rows("Means in T1", 6, 11) %>%
-group_rows("Means in T2",12, nrow(tab)) %>%
+Variabile              | Descrizione
+--------------------   | ------------------------------------------------------------
+Treatment              |  \makecell{Variazione del salario minimo \\ del New Jersey in aprile 1992} 
+Outcome                | Occupazione
+Identification         | Difference in differences
+Treatment group        | New Jersey
+Control group          | Pennsylvania
+Before                 | Febbraio 1992
+After                  | Novembre 1992
 
-row_spec(0, bold = T)  %>%
-column_spec(2:(nrow(tab)+1), width = "5em")
+## Difference in differences
 
-```
+$y = \beta_0 + \beta_1 T + \beta_2 S + \beta_3 (TS) + \varepsilon$
+
+dove 
+
+- $T = 1$ se $t = After$
+- $S = 1$ se $s = NJ$
+
+## Difference in differences
+
+$y_{st}$       | s = 2             | s = 1             |  Difference
+-------------- | ----------------- | ----------------- | ----------------------
+$t = 2$        | $y_{22}$          | $y_{12}$          | $y_{12} - y_{22}$
+$t = 1$        | $y_{21}$          | $y_{11}$          | $y_{11} - y_{21}$
+Change         | $y_{21} - y_{22}$ | $y_{11} - y_{22}$ | $(y_{11} - y_{21})$ - $(y_{12} - y_{22})$
+
+Effetto del trattamento: 
+$\beta_3 = (y_{11} - y_{21}) - (y_{12} - y_{22})$
+
 
 ## Table 3
 \captionsetup[table]{labelformat=empty}
@@ -253,7 +253,7 @@ knitr::kable(t(tab),
              format="latex", 
              booktabs = T, 
              linesep = "", 
-             caption = "\\textbf{Table 3}", 
+             caption = "\\textbf{Table 3 - Before and After Average Employement per Store}", 
              longtable=T)%>%
 
 kable_styling(full_width = F,
@@ -267,6 +267,41 @@ row_spec(0, bold = T)  %>%
 column_spec(2:(nrow(tab)+1), width = "5em")
 
 ```
+
+
+
+## Card & Krueger (1994)
+
+$$
+\Delta E_i = \alpha + \beta X_i + \gamma NJ_i + \varepsilon_i
+$$
+dove: 
+
+- $\Delta E_i$ = variazione dell'occupazione fra $t_1$ e $t_2$ nel ristorante $i$
+- $X_i$ = matrice di covariate
+- $NJ_i$ = 1 se il ristorante è in New Jersey, 0 altrimenti
+
+## Card & Krueger (1994)
+
+$$
+\Delta E_i = \alpha' + \beta' X_i + \gamma' GAP_i + \varepsilon_i
+$$
+dove: 
+
+- $GAP_i$ = 0 se il ristorante è in Pennsylvania
+- $GAP_i$ = 0 se il ristorante è in New Jersey e $W_{1i} = \$5.05$
+- $GAP_i$ = $(5.05 - W_{1i})/W_{1i}$ per gli altri ristoranti in New Jersey
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Table 4
@@ -288,11 +323,17 @@ column_spec(2:(nrow(tab)+1), width = "5em")
 
 ```
 
-## Risultati (da finire)
+- i) New Jersey dummy.
+- ii) New Jersey dummy e franchise dummy.
+- iii) GAP variable.
+- iv) GAP variable e franchise dummy.
+- v) GAP variable, franchiese dummy e regional dummy.
 
-- tasso occupazione non diminuisce all'aumento del salario minimo
-- risultato difference in differences validato con regressione lineare (senza e controlli)
-(variabile dipendente cambio tasso occupazione, indipendente stato e variabile GAP)
-- vogliamo mettere di QUANTO cambia l'occupazione?
+
+## Risultati
+
+- L'aumento del salario minimo ha prodotto un aumento del tasso di occupazione.
+- Il risultato ottenuto con il metodo difference in differences è stato validato da regressione lineari, con o senza controlli.
+- Nell'articolo sono stati studiati altri outcome (frazione dei lavoratori full-time, ore di apertura dei ristoranti, tempo per il primo aumento salariale).
 
 

@@ -1,0 +1,89 @@
+========================
+HOW TO USE THE DATA FILE
+========================
+
+The data file is comma delimited text. The first row contains the list
+of variables and each remaining row contains the corresponding data for
+an individual restaurant. Missing data are indicated by a period. 
+Explanations for all variable abbreviations are given below. 
+
+==============================================================
+EXPLANATION OF DATA MEASUREMENT ABBREVIATIONS IN THE DATA FILE
+==============================================================
+
+SHEET           sheet number (unique store id)
+CHAIN           chain 1=Burger King; 2=KFC; 3=Roy Rogers; 4=Wendys
+CO_OWNED        1 if company owned
+STATE           1 if NJ; 0 if Pa                      
+
+Dummies for location:
+
+SOUTHJ         1 if in southern NJ
+CENTRALJ       1 if in central NJ
+NORTHJ         1 if in northern NJ
+PA1            1 if in PA, northeast suburbs of Phila
+PA2            1 if in PA, Easton etc
+SHORE          1 if on NJ shore
+
+First Interview:
+
+NCALLS         number of call-backs*
+EMPFT          # full-time employees
+EMPPT          # part-time employees
+NMGRS          # managers/ass't managers
+WAGE_ST        starting wage ($/hr)
+INCTIME        months to usual first raise
+FIRSTINC       usual amount of first raise ($/hr)
+BONUS          1 if cash bounty for new workers
+PCTAFF         % employees affected by new minimum
+MEALS          free/reduced price code (See below)
+OPEN           hour of opening
+HRSOPEN        number hrs open per day
+PSODA          price of medium soda, including tax
+PFRY           price of small fries, including tax
+PENTREE        price of entree, including tax
+NREGS          number of cash registers in store
+NREGS11        number of registers open at 11:00 am
+
+Second Interview:
+
+TYPE2         type 2nd interview 1=phone; 2=personal
+STATUS2       status of second interview: see below
+DATE2         date of second interview MMDDYY format
+NCALLS2       number of call-backs*
+EMPFT2        # full-time employees
+EMPPT2        # part-time employees
+NMGRS2        # managers/ass't managers
+WAGE_ST2      starting wage ($/hr)
+INCTIME2      months to usual first raise
+FIRSTIN2      usual amount of first raise ($/hr)
+SPECIAL2      1 if special program for new workers
+MEALS2        free/reduced price code (See below)
+OPEN2R        hour of opening
+HRSOPEN2      number hrs open per day
+PSODA2        price of medium soda, including tax
+PFRY2         price of small fries, including tax
+PENTREE2      price of entree, including tax
+NREGS2        number of cash registers in store
+NREGS112      number of registers open at 11:00 am
+
+Codes:
+
+Free/reduced Meal Variable:
+0 = none
+1 = free meals
+2 = reduced price meals
+3 = both free and reduced price meals
+
+
+Second Interview Status:
+
+0 = refused second interview (count = 1)
+1 = answered 2nd interview (count = 399)
+2 = closed for renovations (count = 2)
+3 = closed "permanently" (count = 6)
+4 = closed for highway construction (count = 1)
+5 = closed due to Mall fire (count = 1)
+
+
+*Note: number of call-backs = 0 if contacted on first call

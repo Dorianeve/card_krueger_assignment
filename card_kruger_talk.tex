@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{PRESENTAZIONE}
+\author{}
+\date{April 2021}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\section{Slide 1 - Introduzione} 
+
+Presentiamo l'articolo del 92 di Card e Kruger in cui si utilizza il metodo difference in differences. 
+
+L'obiettivo è capire quali siano gli effetti sull'occupazione dovuti ad un aumento del salario minimo in un mercato del lavoro caratterizzato da bassi salari. Quindi capire se si ha un aumento oppure una diminuzione dell'occupazione.
+
+Il caso di studio è fornito dallo stato del New Jersey in cui una legge stabilisce l'aumento del salario minimo da 4.25 a 5.05 dollari l'ora a partire dall'aprile del 92.
+
+Ed in particolare nello studio ci si focalizza sull'analisi dell'industria del fast food.
+
+\section{Slide 2 - Caso di studio} 
+Vediamo quindi un po' più nel dettaglio il caso di studio. 
+
+La scelta dell'industria del fast food come riferimento è data i motivi elencati di seguito. 
+
+Per prima cosa, i lavoratori hanno generalmente un basso salario, i ristoranti applicano la regolamentazione sul salario minimo. Infine sia le competenze richieste ai lavoratori sia i prodotti finali sono sostanzialmente omogenei tra i ristoranti e la mancanza di mance semplifica la misurazione del salario.
+
+Sono quindi stati intervistati diversi ristoranti di fast-food del New Jersey e della Pennsylvania.
+
+Geograficamente, c'è New York su una sponda dell'Hudson. Sull'altra riva comincia il New Jersey i cui ristoranti formano il gruppo di trattamento, proprio perché sono soggetti alla nuova regolamentazione sul salario minimo. Se ci si sposta verso l'interno si arriva nella parte est della Pennsylvania. Le economie di questi due stati hanno forti collegamenti e presentano pattern stagionali simili. Di conseguenza i ristoranti di quest'area della Pennsylvania sono utilizzati come gruppo di controllo.
+
+I due gruppi sono stati intervistati prima e dopo il trattamento.
+\section{Slide 3 - Overview del campione - 1} 
+
+Vediamo quindi velocemente le numeriche del dataset. La prima riga indica il numero di ristoranti presenti nel New Jersey e in Pennsylvania. La riga "Interviewed" indica i ristoranti che hanno risposto alle domande, togliendo quindi quelli che si sono rifiutati di rispondere oppure che erano chiusi.
+
+Abbiamo quindi 399 ristoranti, di cui 321 nel New Jersey ed il restante in Pennsylvania.
+
+ 
+\section{Slide 4 - Overview del campione - 2}
+
+Diamo un'occhiata alle medie delle principali variabili del dataset. 
+
+Nella prima parte della tabella vediamo la distribuzione dei ristoranti rispetto alle catene, come Burger King, KFC, se i ristoranti sono proprietari, ecc... 
+
+(se qualcuno chiede qualcosa, Mc Donald's non risponde ai sondaggi).
+
+Dopodiché abbiamo le medie di diverse variabili di interesse misurate prima e dopo il trattamento. 
+La prima variabile presa in considerazione è il Full Time Equivalent employement, ovvero  il numero di lavoratori a tempo pieno, compresi i manager, più la metà del numero dei lavoratori part-time. Questa è la variabile principale utilizzata per misurare l'occupazione.
+
+Subito dopo abbiamo la percentuale di lavoratori full-time, la paga iniziale di un lavoratore, il numero di ore in cui il ristorante è aperto, il prezzo di un pasto di riferimento, principalemente una bibita, un sacchetto di patatine e un panino. Infine abbiamo la percentuale di lavoratori con paga minima di 4 dollari e 25 centesimi. 
+
+Prima del trattamento non ci sono differenze tra i due gruppi, eccetto il prezzo del pasto di riferimento che risulta più alto nel New Jersey rispetto alla Pennsylvania.
+
+Nell'ultimo blocco abbiamo le stesse variabili misurate dopo il trattamentoe possiamo vedere che cambia radicalmente la paga iniziale del lavoratore del New Jersey che si adegua al salario minimo previsto dalla nuova legge. 
+
+Anche la distribuzione dei salari cambia tra prima e dopo il trattamento come vediamo nei prossimi grafici.
+
+\section{Slide 5 - Distribuzione Salari Before}
+
+Abbiamo la distribuzione dei salari nei due gruppi e che risulta essere simile tra New Jersey e Pennsylvania prima del trattamento.
+
+Nella slide vediamo come si modifica la distribuzione a seguito del trattamento...
+
+
+\section{Slide 6 - Distribuzione Salari After}
+
+... e abbiamo che tutti i ristoranti si sono adeguati alla nuova legge sul salario minimo e si ha, quindi, una differenza significativa nella distribuzione tra i due gruppi.
+
+\section{Slide 7 - Sintesi} 
+
+In sintesi abbiamo gli aspetti principali del caso di studio.
+
+Il trattamento è dato dall'aumento di salario minimo. L'outcome è l'occupazione, misurata tramite Full Time Equivalent employement. Il gruppo di trattamento è dato dai ristoranti del New Jersey ed il gruppo di controllo dai ristoranti della Pennsylvania. I due gruppi sono osservati nel Febbraio del 92, quindi prima dell'entrata in vigore dell'aumento salariale, e nel novembre dello stesso anno.
+
+Andiamo quindi a vedere la difference in differences tra i due gruppi.
+
+
+\end{document}
