@@ -214,7 +214,7 @@ p
 
 Variabile              | Descrizione
 --------------------   | ------------------------------------------------------------
-Treatment              |  \makecell{Variazione del salario minimo \\ del New Jersey in aprile 1992} 
+Treatment              |  \makecell{Variazione del salario minimo \\ del New Jersey nell'aprile 1992} 
 Outcome                | Occupazione
 Identification         | Difference in differences
 Treatment group        | New Jersey
@@ -233,11 +233,11 @@ dove
 
 ## Difference in differences
 
-$y_{st}$       | s = 2             | s = 1             |  Difference
--------------- | ----------------- | ----------------- | ----------------------
+$y_{st}$       | s = 2             | s = 1             |  Difference            
+-------------- | ----------------- | ----------------- | -------------------------------
 $t = 2$        | $y_{22}$          | $y_{12}$          | $y_{12} - y_{22}$
 $t = 1$        | $y_{21}$          | $y_{11}$          | $y_{11} - y_{21}$
-Change         | $y_{21} - y_{22}$ | $y_{11} - y_{22}$ | $(y_{11} - y_{21})$ - $(y_{12} - y_{22})$
+Change         | $y_{21} - y_{22}$ | $y_{11} - y_{22}$ | $(y_{11} - y_{21}) - (y_{12} - y_{22})$
 
 Effetto del trattamento: 
 $\beta_3 = (y_{11} - y_{21}) - (y_{12} - y_{22})$
@@ -271,6 +271,10 @@ column_spec(2:(nrow(tab)+1), width = "5em")
 
 
 ## Card & Krueger (1994)
+
+- Il metodo difference in differences non tiene conto di altre possibili cause di variazione nell'occupazione.
+
+- Validiamo utilizzando delle regressioni lineari.
 
 $$
 \Delta E_i = \alpha + \beta X_i + \gamma NJ_i + \varepsilon_i
@@ -324,13 +328,13 @@ column_spec(2:(nrow(tab)+1), width = "5em")
 ```
 
 - i) New Jersey dummy.
-- ii) New Jersey dummy e franchise dummy.
+- ii) New Jersey dummy e chain dummy.
 - iii) GAP variable.
-- iv) GAP variable e franchise dummy.
-- v) GAP variable, franchiese dummy e regional dummy.
+- iv) GAP variable e chain dummy.
+- v) GAP variable, chain dummy e regional dummy.
 
 
-## Risultati
+## Conclusioni
 
 - L'aumento del salario minimo ha prodotto un aumento del tasso di occupazione.
 - Il risultato ottenuto con il metodo difference in differences è stato validato da regressione lineari, con o senza controlli.
