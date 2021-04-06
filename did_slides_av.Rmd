@@ -268,13 +268,14 @@ column_spec(2:(nrow(tab)+1), width = "5em")
 
 ```
 
+FTE = numero lavoratori full-time + $\frac{1}{2}$ numero lavoratori part-time.
 
 
 ## Card & Krueger (1994)
 
 - Il metodo difference in differences non tiene conto di altre possibili cause di variazione nell'occupazione.
 
-- Validiamo utilizzando delle regressioni lineari.
+- Validiamo utilizzando altre regressioni lineari.
 
 $$
 \Delta E_i = \alpha + \beta X_i + \gamma NJ_i + \varepsilon_i

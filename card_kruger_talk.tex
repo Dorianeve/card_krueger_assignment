@@ -89,15 +89,33 @@ Da fare
 
 \section{Slide 10 - Table 3}
 
-Da fare
+Vediamo  la tabella con le differenze della media del Full Time Equivalent employement, dato dal numero dei lavoratori full-time più la metà del numero dei lavoratori part-time.
+
+(accompagnare la descrizione della tabella con il puntatore altrimenti non si capisce niente. Chiedere anche se il puntatore si vede per assicurarsi che esista uno sveglio).
+
+Nelle prime tre righe vediamo il Full Time Equivalent suddiviso per stato e la differenza nella terza riga.  Abbiamo i valori medi calcolati prima del trattamento, questa è la differenza (sempre indicando con il puntatore), e il relativo errore standard. Dopodiché abbiamo la stessa misurazione effettuata dopo il trattamento. E quindi in questa colonna (indicare la penultima colonna change in mean)  abbiamo la differenza della media per la Pennsylvania, di -2.17, e del New Jersey, di 0.59. Dunque il valore 2.75 è quello ottenuto tramite difference in difference facendo la differenza di questi due valori. Nella terza colonna abbiamo sempre la difference in difference calcolata però sul sottocampione dei ristoranti che hanno risposto ad tutte le domande sia prima sia dopo il trattamento e notiamo come l'effetto sia lo stesso.
+
+Nel secondo gruppo vediamo la differenza all'interno dei ristoranti del New Jersey. La divisione in tre gruppi è basata sul salario iniziale dato ai lavoratori. Nella prima riga abbiamo i valori medi per i ristoranti che danno un salario iniziale pari al minimo, 4.25 prima del trattamento e 5.05 dopo il trattamento. Nella terza riga la media è fatta sui ristoranti che danno un salario iniziale maggiore di 5 dollari. Nella riga in mezzo sono raggruppati i ristoranti con valori intermedi di salario iniziale.
+
+Con questo raggruppamento si può notare che i ristoranti con bassi o medi salari hanno avuto un incremento dell'occupazione, mentre i ristoranti che già fornivano un salario elevato hanno avuto una diminuzione dell'occupazione. In particolare questi ristoranti non sono stati influenzati dall'aumento del salario minimo e se vediamo la differenza in media nel campione bilanciato possiamo notare come il decremento dell'occupazione è paragonabile al decremento avuto dai ristoranti della Pennsylvania. Questa osservazione fornisce una validazione dell'utilizzo dei ristoranti della Pennsylvania come gruppo di controllo.
+
+Nelle ultime due righe vediamo le differenze all'interno dei gruppi del New Jersey. In particolare, se ci focalizziamo sull'ultima colonna vediamo un forte aumento dell'occupazione nei ristoranti con bassi o medi salari iniziali rispetto ai ristoranti con alti salari.
+
+(nel caso sapere che all'epoca c'è stata una recessione in quel periodo ed un aumento del tasso di disoccupazione. L'aumento del salario minimo sembra aver mitigato, addirittura invertito, la tendenza al calo dell'occupazione in quei ristoranti che hanno subito maggiormente l'effetto del trattamento. 
+
 
 \section{Slide 11 - Card \& Kruger (1994)}
 
-Da Fare
+Il metodo difference in differences, se visto come modello di regressione lineare, non tiene conto di eventuali altri fattori che possano influenzare la variazione nell'occupazione.
+
+Di conseguenza andiamo a considerare altri modelli di regressione in cui possiamo inserire altre variabili indipendenti. In questa slide vediamo la prima classe di modelli in cui abbiamo che la variazione dell'occupazione $\Delta E_i$ è data da delle covariate $X_i$, con i loro coefficienti $\beta$ e dalla variabile dummy del New Jersey che indica se il ristorante si trova o meno nel New Jersey e quindi se appartiene o meno al gruppo di trattamento.
+
+ 
 
 \section{Slide 12 - Card \& Kruger (1994)}
 
-Da fare
+In questa slide vediamo invece la seconda classe di modelli che è analoga alla precedente, ma si utilizza la variabile che chiamiamo GAP per misurare il trattamento. Questa variabile vale 0 se il ristorante si trova in Pennsylvania. Se invece si trova nel New Jersey, la variabile GAP rappresenta l'incremento proporzionale necessario per raggiungere la nuova soglia di salario minimo. Quindi, se il ristorante ha un salario iniziale maggiore o uguale a 5 e 5 centesimi, la variabile GAP vale 0, e quindi sto rappresentando il fatto che la nuova legge non ha effetti su questo particolare ristorante. Per tutti gli altri  la variabile GAP indica l'incremento proporzionale necessario per adeguarsi alla nuova normativa. E l'effetto sarà tanto maggiore quanto più il ristorante ha una paga vicina alla soglia di 4 e 25 precedente al trattamento.
+
 
 \section{Slide 13 - Tabella 4}
 

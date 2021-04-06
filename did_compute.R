@@ -392,7 +392,7 @@ table4 <- rbind(round(app,2),
 
 colnames(table4) = c("i","ii","iii","iv", "v")
 
-rownames(table4) = c("Coefficients", "SE Coefficients","SE Regression", "Prob. Controls")
+rownames(table4) = c("Coefficient", "SE Coefficient","SE Regression", "Prob. Controls")
 
 #### save results #############
 
