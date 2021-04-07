@@ -81,6 +81,10 @@ rownames(stores) = c("Buger King",
                      "Wendys", 
                      "Company-owned")
 
+
+stores_new = cbind(stores[,2],stores[,1]) 
+colnames(stores_new) = c("NJ", "PA")
+
 # means wave 1 
 
 min_wage1 <- dat %>%
@@ -144,7 +148,7 @@ w22 = cbind(w2[, 2], w2[, 1])
 rownames(w11) = names
 rownames(w22) = c(names, "Wage = 5.05$ (%)")
 
-table2 = rbind(stores, w11, w22)
+table2 = rbind(stores_new, w11, w22)
 
 ##### reproduce table 3 #############
 
