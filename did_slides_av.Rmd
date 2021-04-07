@@ -2,7 +2,7 @@
 title: 'Minimum wages and employment: A case study of the fast food industry in New
   Jersey and Pennsylvania'
 author: "Verena Brufatto, Claudia Manili, Luca Messina, Alessandro Villa"
-date: "\today"
+date: \today
 output:
   beamer_presentation:
     colortheme: dolphin
