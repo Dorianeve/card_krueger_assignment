@@ -45,8 +45,11 @@ load(paste0(path, "/results.RData"))
 ## Introduzione
 
 - Presentiamo l'articolo di David Card e Alan B. Kruger del settembre 1994.
+\vspace{0.3cm}
 - In un mercato del lavoro con bassi salari, quali sono gli effetti sull'occupazione dovuti ad un aumento del salario minimo?
+\vspace{0.3cm}
 - In data 1 Aprile 1992 il salario minimo del New Jersey aumenta da \$4.25 a \$5.05 l'ora.
+\vspace{0.3cm}
 - Si analizza l'industria dei fast food.
 
 
@@ -56,12 +59,13 @@ load(paste0(path, "/results.RData"))
     - Alta percentuale di lavoratori con bassi salari.
     - I ristoranti rispettano la regolamentazione sul salario minimo.
     - Qualifica dei lavoratori e prodotti finali omogenei, assenza di mance facilitano la misurazione del salario.
-    
+\vspace{0.3cm}
 - Sono intervistati diversi ristoranti fast-food.
+\vspace{0.3cm}
 - Suddivisione in due gruppi.
     - Treatment group, ristoranti del New Jersey in cui si ha l'aumento del salario minimo.
     - Control group, ristoranti della Pennsylvania con economia comparabile a quella del New Jersey.
-
+\vspace{0.3cm}
 - I ristoranti sono stati intervistati prima e dopo il trattamento.
 
 
@@ -106,16 +110,16 @@ column_spec(2:(nrow(tab)+1), width = "5em")
 
 
 
-## Distribuzione dei salari in $T_1$
+## Distribuzione dei salari prima del trattamento
 
-```{r eval=T, echo=F, include=T, message=F, warning=F, out.height="80%", out.width="70%"}
+```{r fig.align="center", eval=T, echo=F, include=T, message=F, warning=F, out.height="100%", out.width="125%"}
 
 x_st_wage_before_nj <- dat_NJ$wage_st
 x_st_wage_before_pa <- dat_PA$wage_st
 
 xbins <- list(start=4.20, end=5.60, size=0.1)
 
-p <- plot_ly(alpha = 0.6, width = 800, height = 800) %>%
+p <- plot_ly(alpha = 1.0, width = 800, height = 800) %>%
   add_histogram(x = x_st_wage_before_nj, 
                 xbins = xbins,
                 histnorm = "percent", 
@@ -141,9 +145,9 @@ p
 ```
 
 
-## Distribuzione dei salari in $T_2$
+## Distribuzione dei salari dopo il trattamento
 
-```{r eval=T, echo=F, include=T, message=F, warning=F, out.height="80%", out.width="70%"}
+```{r fig.align="center", eval=T, echo=F, include=T, message=F, warning=F, out.height="100%", out.width="125%"}
 
 # WAGE AFTEER
   x_st_wage_after_nj <- dat_NJ$wage_st2
@@ -152,7 +156,7 @@ p
   xbins <- list(start=4.20,
                 end=5.60,
                 size=0.1)
-  p <- plot_ly(alpha = 0.6, width = 800, height = 800) %>%
+  p <- plot_ly(alpha = 1.0, width = 800, height = 800) %>%
     add_histogram(x = x_st_wage_after_nj, 
                   xbins = xbins,
                   histnorm = "percent", 
@@ -174,47 +178,13 @@ p
   p
 
 ```
-
-
-```{r eval=T, echo=F, include=T, message=F, warning=F, out.height="80%", out.width="70%"}
-
-# WAGE AFTEER
-  x_st_wage_after_nj <- dat_NJ$wage_st2
-  x_st_wage_after_pa <- dat_PA$wage_st2
-
-  xbins <- list(start=4.20,
-                end=5.60,
-                size=0.1)
-  p <- plot_ly(alpha = 0.6, width = 800, height = 800) %>%
-    add_histogram(x = x_st_wage_after_nj, 
-                  xbins = xbins,
-                  histnorm = "percent", 
-                  name = "Wage After (New Jersey)") %>%
-    add_histogram(x = x_st_wage_after_pa, 
-                  xbins = xbins,
-                  histnorm = "percent",
-                  , name = "Wage After (Pennsylvania)") %>%
-    layout(barmode = "group", title = "November 1992",
-           xaxis = list(tickvals=seq(4.25, 5.55, 0.1),
-                        title = "Wage in $ per hour"),
-             yaxis = list(range = c(0, 100)),
-           margin = list(b = 100, 
-                          l = 80, 
-                          r = 80, 
-                          t = 80, 
-                          pad = 0, 
-                          autoexpand = TRUE))
-  p
-
-```
-
 
 
 ## Sintesi
 
 Variabile              | Descrizione
---------------------   | ------------------------------------------------------------
-Treatment              |  \makecell{Variazione del salario minimo \\ del New Jersey nell'aprile 1992} 
+--------------------   | --------------------------------------------------------------
+Treatment              | \makecell[l]{Aumento del salario minimo\\  del New Jersey nell'aprile 1992} 
 Outcome                | Occupazione
 Identification         | Difference in differences
 Treatment group        | New Jersey
@@ -222,25 +192,28 @@ Control group          | Pennsylvania
 Before                 | Febbraio 1992
 After                  | Novembre 1992
 
-## Difference in differences
-
-$y = \beta_0 + \beta_1 T + \beta_2 S + \beta_3 (TS) + \varepsilon$
-
-dove 
-
-- $T = 1$ se $t = After$
-- $S = 1$ se $s = NJ$
 
 ## Difference in differences
 
-$y_{st}$       | s = 2             | s = 1             |  Difference            
+- G = 1 se gruppo di trattamento, G = 0 altrimenti
+- T = 1 se dopo il trattamento, T = 0 se prima
+
+$y_{TG}$       | G = 0             | G = 1             |  Difference            
 -------------- | ----------------- | ----------------- | -------------------------------
-$t = 2$        | $y_{22}$          | $y_{12}$          | $y_{12} - y_{22}$
-$t = 1$        | $y_{21}$          | $y_{11}$          | $y_{11} - y_{21}$
-Change         | $y_{21} - y_{22}$ | $y_{11} - y_{22}$ | $(y_{11} - y_{21}) - (y_{12} - y_{22})$
+$T = 0$        | $y_{00}$          | $y_{01}$          | $y_{00} - y_{01}$
+$T = 1$        | $y_{10}$          | $y_{11}$          | $y_{10} - y_{11}$
+Change         | $y_{10} - y_{00}$ | $y_{11} - y_{01}$ | $(y_{10} - y_{11}) - (y_{00} - y_{01})$
+
+
+- Possiamo vedere il metodo difference in difference come un modello regressivo
+
+\begin{equation*}
+y = \beta_0 + \beta_1 T + \beta_2 G + \beta_3 (T\cdot G) + \varepsilon
+\end{equation*}
+
 
 Effetto del trattamento: 
-$\beta_3 = (y_{11} - y_{21}) - (y_{12} - y_{22})$
+$\beta_3 = (y_{10} - y_{11}) - (y_{00} - y_{01})$
 
 
 ## Table 3
@@ -274,7 +247,7 @@ FTE = numero lavoratori full-time + $\frac{1}{2}$ numero lavoratori part-time.
 ## Card & Krueger (1994)
 
 - Il metodo difference in differences non tiene conto di altre possibili cause di variazione nell'occupazione.
-
+\vspace{0.3cm}
 - Validiamo utilizzando altre regressioni lineari.
 
 $$
@@ -338,7 +311,9 @@ column_spec(2:(nrow(tab)+1), width = "5em")
 ## Conclusioni
 
 - L'aumento del salario minimo ha prodotto un aumento del tasso di occupazione.
+\vspace{0.3cm}
 - Il risultato ottenuto con il metodo difference in differences è stato validato da regressione lineari, con o senza controlli.
+\vspace{0.3cm}
 - Nell'articolo sono stati studiati altri outcome (frazione dei lavoratori full-time, ore di apertura dei ristoranti, tempo per il primo aumento salariale).
 
 

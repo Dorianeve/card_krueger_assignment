@@ -79,13 +79,17 @@ Il trattamento è dato dall'aumento di salario minimo. L'outcome è l'occupazion
 
 Andiamo quindi a vedere la difference in differences tra i due gruppi.
 
-\section{Slide 8 - }
+\section{Slide 8 fusione 9 - Difference in differences }
 
-Da fare
+Il modello dovremmo averlo appena visto a lezione. In ogni caso con la variabile dummy G indichiamo l'appartenenza al gruppo, quindi 1 nel caso del gruppo di trattamento, per noi il New Jersey. Con la variabile dummy T indichiamo il tempo prima e dopo il trattamento.
 
-\section{Slide 9 - }
+Mettiamo quindi la nostra variabile di interesse all'interno della tabella, suddivisa nei vari gruppi, per esempio $y_{11}$ ci indica il New Jersey a seguito del trattamento.
+Abbiamo la differenza dei due gruppi al tempo 0 (ultima colonna, prima riga) oppure la differenza tra i due gruppi al tempo 1 (ultima colonna, riga in mezzo). Mentre nell'ultima riga abbiamo la differenza all'interno dei gruppi tra i due istanti temporali.
 
-Da fare
+Nell'angolo abbiamo quindi la differenza tra le differenze.
+
+Questo metodo possiamo vederlo come un modello regressivo della forma seguente, dove (indicare) il prodotto $T \cdot G$ indica il gruppo di controllo a seguito del trattamento ed il coefficiente $\beta_3$ è proprio la difference in differences.
+
 
 \section{Slide 10 - Table 3}
 
